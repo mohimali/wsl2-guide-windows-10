@@ -1,10 +1,10 @@
 # WSL2 Guide on windows 10
 
-WSL2 will enable you to use the linux sub system on windows 10. This should also work on windows 11.
+WSL2 will enable you to use the linux sub system on Windows 10. This should also work on Windows 11.
 
 # Notes before starting
 
-If you ever get firewall notifications for either docker, ubuntu, any other applications that you install, its important to tick box of these boxes and allow access
+If you ever get firewall notifications for either docker, ubuntu, any other applications that you install, it's important to tick both of these boxes and allow access
 
 ![](images/firewall.png)
 
@@ -20,7 +20,7 @@ Its important you learn the following as we will be referring  to these terms of
 - WSL 2 is only available in Windows 10, Version 1903, Build 18362 or higher.
 
 ## Install WSL2
-In a powershell admin run the following. First command will install chocolatey, a package manager. 
+In a powershell admin (64 bit not x86) run the following. First command will install chocolatey, a package manager. 
 ```
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 ```

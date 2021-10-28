@@ -15,6 +15,7 @@ Its important you learn the following as we will be referring  to these terms of
 - Windows 11 Wayland is one implementation of a Display Server . It comes packaged with Windows 11. Windows 10 does not, therefore the `DISPLAY` export isn't needed but you can override this if you wish to use your own X Server if you are on Windows 11.
 - Its recommended you run intellij from within wsl2 to get a more native linux experience. It also indexes faster. 
 - Use ~/.bashrc if your using bash or ~/.zshrc for zsh users.
+- Modern operating systems use 64 bit apps to make use of more then 4gb of ram. Remember x86 is the same as 32bit. Try and use 64bit applications where possible. In a windows title bar if its blank it is usually 64bit(if you are running a 64bit Windows 10), ensure it doesnt say x86 especially for powershell.
 
 # Pre-requisites 
 - WSL 2 is only available in Windows 10, Version 1903, Build 18362 or higher.

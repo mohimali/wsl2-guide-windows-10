@@ -118,13 +118,18 @@ For intellij ultimate users
 wget https://download.jetbrains.com/idea/ideaIU-2021.2.3.tar.gz
 tar -zxf ideaIU-2021.2.3.tar.gz
 ```
+Ensure you add your libraries on your ubuntu shell, for things like fonts etc
+```
+sudo apt install libcups2 libpangocairo-1.0-0 libatk-adaptor libxss1 libnss3 libxcb-keysyms1 x11-apps libgbm1
+```
 
 I usually create an alias to run this via one of the below commands. Use the correct path. I usually store this in either the `.bashrc`  or `.zshrc`
 ```
+export LIBGL_ALWAYS_INDIRECT=1
 alias idea='/home/mohim/scripts/idea-IU-212.5284.40/bin/idea.sh $1 > /dev/null 2>&1 &'
-
-idea
 ```
+
+Then you can run `idea` in your ubuntu terminal
 
 ## Integration with VS Code
 VS Code probably has the best integration with wsl2. 
@@ -145,23 +150,64 @@ Open up task scheduler from the start menu. Add a basic task with these instruct
 
 ![](images/task-scheduler-untick-these-boxes.png)
 
+## Open windows explorer via terminal
 
+Add the following alias to your .bashrc or .zshrc. Then you can use `open dir` to open a specific directory in windows file explorer
+```
+alias open="explorer.exe"
+```
 
 # Troubleshooting
-- If you have issues running wsl2 on bootup then you can disable fastboot. https://stephenreescarter.net/wsl2-network-issues-and-win-10-fast-start-up/
+This part will cover any issues you have
 
 
+## WSL2 Not starting on bootup
+If you have issues running wsl2 on bootup then you can disable fastboot. https://stephenreescarter.net/wsl2-network-issues-and-win-10-fast-start-up
+
+## WSL2 Internet issues with vpn 
+Use CMD or postman/internet browser for vpn related requests. For now the vpn isn't compatible with the ubuntu terminal. There are alternatives that you can do by editing the /etc/resolv.conf file but this only works with some corporate vpns.  
+
+## Intellij not starting
+- Check your $DISPLAY variable to ensure it points to the WSL2 
+- Check you are running VcXsrv. The shortcut is inside the scripts folder. I hardly advise you set it up in a task so it auto starts on login.
+
+# Intellij has missing icons and fonts
+
+Go to help > Edit Custom VM options on intellij and add the following line
+```
+-Dremote.x11.workaround=false
+
+```
+
+## Intellij looks blurry
+Only do these steps if your intelliJ looks blurry. I had the same issue on a 4k monitor.
+1. Right click the following files and go to properties -> compatibility > Change high DPI Scaling > High DPI Scaling override Application
+```
+C:\Program Files\VcXsrv\vcxsrv.exe
+C:\Program Files\VcXsrv\xlaunch.exe
+```
+
+Then you can add the following to your .bashrc or .zshrc file. This profile works for me on a 4k monitor with 175% windows display scaling. Note only do the below if you have a 4k monitor. The numbers may change
+```
+export GDK_SCALE=2
+export GDK_DPI_SCALE=0.75
+export QT_SCALE_FACTOR=2
+```
+
+## Scrolling in nano via mouse
+Add the following alias to your .bashrc or .zshrc. Reload this in your terminal using source ~/.bashrc
+```
+alias nano="nano --mouse"
+```
 
 # TODO
 
-- Update troubleshooting guide with scaling bugs
 - Add more wsl2 tips from existing files
-- Upload to github
-- vs code editor
-- map folder
-- paste stuff to intellij and nautilus
+- paste images and files to intellij and nautilus
 - Map wsl2 as a network drive for easy exploring within file explorer
 - get rid of scaling errors with nautilus
 - scale pictures on readme a little smaller
-- zsh history messing up
+- how to shortcut intellij on desktop from wsl2
+- intellij open from terminal at a particular folder path within wsl2
+- add file explorer to terminal path
 

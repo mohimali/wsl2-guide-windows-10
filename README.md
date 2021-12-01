@@ -169,7 +169,7 @@ Use CMD or postman/internet browser for vpn related requests. For now the vpn is
 
 ## Intellij not starting
 - Check your $DISPLAY variable to ensure it points to the WSL2 
-- Check you are running VcXsrv. The shortcut is inside the scripts folder. I hardly advise you set it up in a task so it auto starts on login.
+- Check you are running VcXsrv. The shortcut is inside the scripts folder within a zip file. I hardly advise you set it up in a task so it auto starts on login.
 
 # Intellij has missing icons and fonts
 
@@ -200,6 +200,13 @@ Add the following alias to your .bashrc or .zshrc. Reload this in your terminal 
 alias nano="nano --mouse"
 ```
 
+## 
+Change starting directory of windows terminal 
+Open Windows Terminal and edit the starting directory for your chosen distro. Use the below path
+```
+\\wsl$\Ubuntu-20.04\home\username
+```
+
 # TODO
 
 - Add more wsl2 tips from existing files
@@ -208,6 +215,4 @@ alias nano="nano --mouse"
 - get rid of scaling errors with nautilus
 - scale pictures on readme a little smaller
 - how to shortcut intellij on desktop from wsl2
-- intellij open from terminal at a particular folder path within wsl2
-- add file explorer to terminal path
 

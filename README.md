@@ -22,25 +22,28 @@ Its important you learn the following as we will be referring  to these terms of
 # Pre-requisites 
 - WSL 2 is only available in Windows 10, Version 1903, Build 18362 or higher.
 
+## Install WSL2
+
 ---
 
-## Install WSL2
---> **NOTE: Use Powershell as Admin (64 bit not x86).** <--
+### **NOTE: Use Powershell as Admin (64 bit not x86).**
 
 Install Chocolatey, a package manager by running the following: - [More Info Here](https://chocolatey.org/install)
 ```
-$ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 ```
 
 Install WSL - [More Info Here](https://docs.microsoft.com/en-us/windows/wsl/install)
 
 ```
-$ wsl --install
+wsl --install
 ```
 Install the recommended Ubuntu distro, Ubuntu 2004. You can check the available distros too.
 ```
-$ wsl --list –online 
-$ wsl --install –d ubuntu-20.04 
+wsl --list –online 
+```
+```
+wsl --install –d ubuntu-20.04 
 ```
 
 ---
@@ -58,7 +61,7 @@ Once ubuntu-2004 is installed run it from your start menu and follow the instruc
 
 Microsoft Terminal is very useful for switching between Powershell, CMD, and Ubuntu.
 ```
-$ choco install microsoft-windows-terminal
+choco install microsoft-windows-terminal
 ```
 
 Open Windows Terminal and use Ubuntu image. 
@@ -82,13 +85,13 @@ Change starting directory of Windows Terminal
 
 Update the ubuntu packages 
 ```
-$ sudo apt-get update –y 
+sudo apt-get update –y 
 ```
 
 Then install zipping tools, zip and unzip - https://zoomadmin.com/HowToInstall/UbuntuPackage/unzip 
 
 ```
-$ sudo apt-get install -y zip unzip
+sudo apt-get install -y zip unzip
 ```
 
 Install some basic packages. These are more than likely already installed, but it’s best to be sure. 
@@ -99,25 +102,51 @@ sudo apt-get install build-essential curl file git zsh xclip
 - zsh will be used for ohmyzsh
 - xclip will be used for copying SSH Keys
 
+## Install Ohmyzsh! - A better command-line Terminal (Skip if you want to stcik with bash)
+
+Install Ohmyzsh - [More Info Here](https://ohmyz.sh/)
+```
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" 
+```
+
+Zsh-autosuggestions plugin - [More Info Here](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh)
+```
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions 
+```
+
+Open .zshrc file by entering 'cd' then entering `nano ~/.zshrc`. Overwrite plugins in the file so it is now: 
+```
+plugins=(  
+    git
+    zsh-autosuggestions 
+) 
+```
+
 ## Install SDKMan, a Java package manager
 
 Install SDKMan - [More Info Here]( https://sdkman.io/install)
 ```
-$ curl -s "https://get.sdkman.io" | bash
-$ source "$HOME/.sdkman/bin/sdkman-init.sh"
+curl -s "https://get.sdkman.io" | bash
+```
+```
+source "$HOME/.sdkman/bin/sdkman-init.sh"
 ```
 
 Install Java 11 using SDKMan
 ```
-$ sdk list java
-$ sdk install java 11.0.11.hs-adpt
-$ java --version
+sdk list java
+```
+```
+sdk install java 11.0.11.hs-adpt
+```
+```
+java --version
 ```
 
 ## Install Homebrew as it's useful for installing things like Maven. Homebrew is not just for mac!
 Install homebrew - [More Info Here]( https://www.osradar.com/install-homebrew-ubuntu-20-04-debian-10/)
 ```
-$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" 
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" 
 ```
 
 In the Terminal, the following message will be printed. Execute  the commands as suggested. 
@@ -145,8 +174,10 @@ Next steps:
 
 Install Maven - [More Info Here](https://formulae.brew.sh/formula/maven)
 ```
-$ brew install maven
-$ mvn --version
+brew install maven
+```
+```
+mvn --version
 ```
 
 ## Install Docker 
@@ -163,8 +194,10 @@ Tick all boxes for any firewall Windows for this application
 
 Restart Windows Terminal and test Docker via the following commands
 ```
-$ docker run hello-world
-$ docker ps
+docker run hello-world
+```
+```
+docker ps
 ```
 
 ## WSLG Apps
@@ -187,7 +220,7 @@ The script is set up with the below arguments.
 </div>
 
 ```
-$ "C:\Program Files\VcXsrv\vcxsrv.exe" :0 -ac -terminate -lesspointer -multiwindow -clipboard -wgl -swcursor -dpi 144
+"C:\Program Files\VcXsrv\vcxsrv.exe" :0 -ac -terminate -lesspointer -multiwindow -clipboard -wgl -swcursor -dpi 144
 ```
 **--> SECTION OVER <--** 
 
@@ -195,86 +228,110 @@ $ "C:\Program Files\VcXsrv\vcxsrv.exe" :0 -ac -terminate -lesspointer -multiwind
 
 ### WSLG Apps
 
-Install GUI apps and run them. You can use Ctrl+Z/Ctrl+C to exit them within terminal if they do not shut down properly. The DISPLAY export lets you 
+Install GUI apps and run them. You can use Ctrl+Z/Ctrl+C to exit them within terminal if they do not shut down properly. The DISPLAY export lets you open these programs in a GUI.
 
 Store the below in your .bashrc or .zshrc file. This will point to the display server(VcXsrv)
+
+To open .zshrc file, enter `nano ~/.zshrc`:
 ```
-$ export DISPLAY="`grep nameserver /etc/resolv.conf | sed 's/nameserver //'`:0"
+export DISPLAY=$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):0.0
 ```
 
 ```
-$ sudo apt install nautilus
-$ sudo apt install gedit
-$ nautilus
-$ gedit
+sudo apt install nautilus gedit
 ```
 
-## Install Ohmyzsh! (A better command-line Terminal) 
-
-Install Ohmyzsh - [More Info Here](https://ohmyz.sh/)
+Check they are installed by running:
 ```
-$ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" 
+nautilus
 ```
-
-Zsh-autosuggestions plugin - [More Info Here](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh)
 ```
-$ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions 
+gedit
 ```
 
-Open .zshrc file by entering 'cd' then entering 'gedit .zshrc'. Overwrite plugins in the file so it is now: 
-```
-plugins=(  
-    git
-    # other plugins... 
-    zsh-autosuggestions 
-) 
-```
+You can now edit files `gedit` and view files with `nautilus`
 
 ## Install NVM (Manager for Nodejs and NPM) - [More Info Here](https://linuxize.com/post/how-to-install-node-js-on-ubuntu-20-04/#installing-nodejs-and-npm-using-nvm)
 
 Install nvm  
 ```
-$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash 
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash 
 ```
 
-Open zshrc file by entering 'cd' then entering nano .zshrc. Add the following to the file: 
+Open .zshrc file, enter `gedit ~/.zshrc` and add the following to the file: 
 
 ```
-$ export NVM_DIR="$HOME/.nvm" 
+export NVM_DIR="$HOME/.nvm" 
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm 
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion 
 ```
+
+## Install Google Chrome
+
+Dependencies, make sure you’re up to date first:
+
+```
+sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove
+```
+
+Download and install Chrome:
+
+```
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+```
+```
+sudo apt -y install ./google-chrome-stable_current_amd64.deb
+```
+
+Check that it’s installed ok:
+
+```
+google-chrome --version
+```
+
+Done! Now it can be used either from the command line `google-chrome`.
 
 ## Install Intellij
 
 Install Intellij on Ubuntu using Snap. - [More Info Here](https://www.jetbrains.com/idea/download/?fromIDE=#section=linux)
 ```
-$ cd
-$ mkdir scripts
+cd
+```
+```
+mkdir scripts
+```
+```
+cd scripts
 ```
 
 Get the latest Intellij download from here. 
 
 For Intellij Community users (Free)
 ```
-$ wget https://download.jetbrains.com/idea/ideaIC-2021.3.2.tar.gz
-$ tar -zxf ideaIC-2021.3.2.tar.gz
+wget https://download.jetbrains.com/idea/ideaIC-2021.3.2.tar.gz
+```
+```
+tar -zxf ideaIC-2021.3.2.tar.gz
 ```
 
 For Intellij Ultimate users (Paid)
 ```
-$ wget https://download.jetbrains.com/idea/ideaIU-2021.3.2.tar.gz
-$ tar -zxf ideaIU-2021.3.2.tar.gz
+wget https://download.jetbrains.com/idea/ideaIU-2021.3.2.tar.gz
+```
+```
+tar -zxf ideaIU-2021.3.2.tar.gz
 ```
 Ensure you add your libraries on your Ubuntu shell, for things like fonts etc
 ```
-$ sudo apt install libcups2 libpangocairo-1.0-0 libatk-adaptor libxss1 libnss3 libxcb-keysyms1 x11-apps libgbm1
+sudo apt install libcups2 libpangocairo-1.0-0 libatk-adaptor libxss1 libnss3 libxcb-keysyms1 x11-apps libgbm1
 ```
 
-For covenience, create an alias to run this via one of the below commands. Use the correct path. Store this in either the `.bashrc`  or `.zshrc`
+For covenience, create an alias to run this via one of the below commands. Use the correct path. Store this in either the `.bashrc`  or `.zshrc`. To open .zshrc file, enter `gedit ~/.zshrc`:
 ```
-$ export LIBGL_ALWAYS_INDIRECT=1
-$ alias idea='$HOME/scripts/idea-IU-212.5284.40/bin/idea.sh $1 > /dev/null 2>&1 &'
+export LIBGL_ALWAYS_INDIRECT=1
+```
+```
+alias idea='$HOME/scripts/idea-IU-212.5284.40/bin/idea.sh $1 > /dev/null 2>&1 &'
 ```
 
 Then you can run `idea` in your ubuntu terminal
@@ -303,9 +360,11 @@ Open up task scheduler from the start menu. Add a basic task with these instruct
 
 ## Open windows explorer via Microsoft Terminal
 
-Add the following alias to your .bashrc or .zshrc. Then you can use `open dir` to open a specific directory in windows file explorer
+Add the following alias to your .bashrc or .zshrc. Then you can use `open dir` to open a specific directory in windows file explorer.
+
+To open .zshrc file, enter `gedit ~/.zshrc`:
 ```
-$ alias open="explorer.exe"
+alias open="explorer.exe"
 ```
 
 # Troubleshooting
@@ -326,28 +385,31 @@ Use CMD or postman/internet browser for vpn related requests. For now the vpn is
 
 Go to help > Edit Custom VM options on intellij and add the following line
 ```
-$ -Dremote.x11.workaround=false
+-Dremote.x11.workaround=false
 ```
 
 ## Intellij looks blurry
 Only do these steps if your intelliJ looks blurry. I had the same issue on a 4k monitor.
 1. Right click the following files and go to properties -> compatibility > Change high DPI Scaling > High DPI Scaling override Application
 ```
-$ C:\Program Files\VcXsrv\vcxsrv.exe
-$ C:\Program Files\VcXsrv\xlaunch.exe
+C:\Program Files\VcXsrv\vcxsrv.exe
+C:\Program Files\VcXsrv\xlaunch.exe
 ```
 
-Then you can add the following to your .bashrc or .zshrc file. This profile works for me on a 4k monitor with 175% windows display scaling. Note only do the below if you have a 4k monitor. The numbers may change
+Then you can add the following to your .bashrc or .zshrc file. This profile works for me on a 4k monitor with 175% windows display scaling. Note only do the below if you have a 4k monitor. The numbers may change.
+To open .zshrc file, enter `gedit ~/.zshrc`:
+
 ```
-$ export GDK_SCALE=2
-$ export GDK_DPI_SCALE=0.75
-$ export QT_SCALE_FACTOR=2
+export GDK_SCALE=2
+export GDK_DPI_SCALE=0.75
+export QT_SCALE_FACTOR=2
 ```
 
 ## Scrolling in nano via mouse
-Add the following alias to your .bashrc or .zshrc. Reload this in your terminal using source ~/.bashrc
+Add the following alias to your .bashrc or .zshrc. Reload this in your terminal using source ~/.bashrc.
+To open .zshrc file, enter `gedit ~/.zshrc`:
 ```
-$ alias nano="nano --mouse"
+alias nano="nano --mouse"
 ```
 
 # TODO

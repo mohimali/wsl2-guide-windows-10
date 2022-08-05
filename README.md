@@ -426,15 +426,6 @@ To open .zshrc file, enter `gedit ~/.zshrc`:
 alias nano="nano --mouse"
 ```
 
-# Google Chrome Browser
-Sometimes its important to use the native browser within WSL2 which gives you a more accurate network for apps running in wsl2
-```
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo apt -y install ./google-chrome-stable_current_amd64.deb
-google-chrome --version
-google-chrome
-```
-
 # TODO
 
 - Add more wsl2 tips from existing files

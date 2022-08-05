@@ -184,17 +184,6 @@ mvn --version
 If you have a docker license or are using docker for non-commericial purposes Docker Desktop is quite easy to setup
 https://docs.docker.com/desktop/windows/install/
 
-### Alternative Docker via Rancher Desktop 
-1. Download Docker Rancher for Windows from https://rancherdesktop.io/
-2. During setup disable "Enable Kubernetes" and select dockerd(moby)
-3. Enable Ubuntu distro via File -> Preferences 
-4. Run the below commands to fix any errors (note you may need to restart your machine)
-
-```
-sudo apt install libsecret-1-0
-docker-credential-secretservice version
-docker login
-```
 
 Tick all boxes for any firewall Windows for this application
 
@@ -210,6 +199,19 @@ docker run -it hello-world
 ```
 ```
 docker ps
+```
+
+### Alternative Docker via Rancher Desktop (Open Source)
+1. Download Docker Rancher for Windows from https://rancherdesktop.io/
+2. During setup disable "Enable Kubernetes" and select dockerd(moby)
+3. Enable Ubuntu distro via File -> Preferences 
+4. Run the below commands to fix any errors (note you may need to restart your machine)
+
+```
+sudo apt install libsecret-1-0
+docker-credential-secretservice version
+docker login
+docker run -it hello-world
 ```
 
 ## WSLG Apps

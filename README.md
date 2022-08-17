@@ -346,7 +346,7 @@ export LIBGL_ALWAYS_INDIRECT=1
 ```
 ```
 function idea() {
-    /home/mohim/tools/apps/idea/idea-IU-222.3345.118/bin/idea.sh "$1" > /dev/null 2>&1 &
+    $HOME/tools/apps/idea/idea-IU-222.3345.118/bin/idea.sh "$1" > /dev/null 2>&1 &
 }
 ```
 

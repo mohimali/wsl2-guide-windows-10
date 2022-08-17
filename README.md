@@ -345,7 +345,9 @@ For covenience, create an alias to run this via one of the below commands. Use t
 export LIBGL_ALWAYS_INDIRECT=1
 ```
 ```
-alias idea='$HOME/scripts/idea-IU-212.5284.40/bin/idea.sh $1 > /dev/null 2>&1 &'
+function idea() {
+    /home/mohim/tools/apps/idea/idea-IU-222.3345.118/bin/idea.sh "$1" > /dev/null 2>&1 &
+}
 ```
 
 Then you can run `idea` in your ubuntu terminal
